@@ -1,17 +1,18 @@
 public class LinkedList {
-
+    // private nested class Node
     private class Node {
         int data;
         private Node(int data) {this.data = data;}
         Node next = null;
     }
 
+    // Init
     private Node head = null;
     private Node tail = null;
     private int size = 0;
-    
     public LinkedList() {}
 
+    // Special case when add new data but the list is empty
     private boolean initList(int e) {
         if (size == 0) {
             Node newNode = new Node(e);
@@ -21,7 +22,7 @@ public class LinkedList {
             return true;
         } else return false;
     }
-
+    // Add the new data at first, run in O(1)
     public void addFirst(int e) {
         if(!initList(e)) {
             Node newFirstNode = new Node(e);
@@ -30,7 +31,7 @@ public class LinkedList {
             size++;
         }
     }
-
+    // Add new data at last, run in O(1)
     public void addLast(int e) {
         if(!initList(e)) {
             Node newLastNode = new Node(e);
@@ -39,7 +40,7 @@ public class LinkedList {
             size++;
         }
     }
-
+    // Remove the last data, run in O(n)
     public int removeLast() {
         Node result = tail;
         if (size == 0) {
@@ -58,7 +59,7 @@ public class LinkedList {
         size--;
         return result.data;
     }
-
+    // Remove the first data, run in O(1)
     public int removeFirst() {
         if (size == 0) {
             throw new Error("Invalid: the list is empty cannot remove element");
@@ -72,7 +73,7 @@ public class LinkedList {
             return result;
         }
     }
-
+    // Get the first data, run in O(1), throw error NULL if the list is empty
     public int getFirst() {
         try{
             return head.data;
@@ -80,7 +81,7 @@ public class LinkedList {
             throw new Error("NULL");
         }
     }
-
+    // Get the last data, run in O(1), throw error NULL if the list is empty
     public int getLast() {
         try{
             return tail.data;
@@ -88,7 +89,7 @@ public class LinkedList {
             throw new Error("NULL");
         }
     }
-
+    // Print out the list with the required order, run in O(n)
     public void showList() {
         if (size == 0) {
             throw new Error("Invalid: the list is empty");
@@ -102,8 +103,12 @@ public class LinkedList {
             System.out.println("");
         }
     }
-
+    // Reverse the list, run in O(n)
     public void reverse() {
-        
+        LinkedList hold = new LinkedList();
+        int sz = size;
+        while(size > 0) hold.addFirst(removeFirst());
+        while(size < sz) addLast(hold.removeFirst());
+        hold = null;
     }
 }
