@@ -44,7 +44,7 @@ public class LinkedList {
     public int removeLast() {
         Node result = tail;
         if (size == 0) {
-            throw new Error("Invalid: the list is empty cannot remove element");
+            throw new Error("The list is empty cannot remove element");
         } else if (size == 1) {
             head = null;
             tail = null;
@@ -62,7 +62,7 @@ public class LinkedList {
     // Remove the first data, run in O(1)
     public int removeFirst() {
         if (size == 0) {
-            throw new Error("Invalid: the list is empty cannot remove element");
+            throw new Error("The list is empty cannot remove element");
         } else {
             int result = head.data;
             Node newHead = head.next;
@@ -75,24 +75,18 @@ public class LinkedList {
     }
     // Get the first data, run in O(1), throw error NULL if the list is empty
     public int getFirst() {
-        try{
-            return head.data;
-        }catch(Exception e) {
-            throw new Error("NULL");
-        }
+        if (size == 0) throw new Error("NULL");
+        else return head.data;
     }
     // Get the last data, run in O(1), throw error NULL if the list is empty
     public int getLast() {
-        try{
-            return tail.data;
-        }catch(Exception e) {
-            throw new Error("NULL");
-        }
+        if (size == 0) throw new Error("NULL");
+        else return tail.data;
     }
     // Print out the list with the required order, run in O(n)
     public void showList() {
         if (size == 0) {
-            throw new Error("Invalid: the list is empty");
+            throw new Error("The list is empty cannot print");
         } else {
             Node current = head;
             while (current != null) {
@@ -103,6 +97,7 @@ public class LinkedList {
             System.out.println("");
         }
     }
+
     // Reverse the list, run in O(n)
     public void reverse() {
         LinkedList hold = new LinkedList();
@@ -110,5 +105,19 @@ public class LinkedList {
         while(size > 0) hold.addFirst(removeFirst());
         while(size < sz) addLast(hold.removeFirst());
         hold = null;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        if (size > 0) {
+            Node current = head;
+            while (current != null) {
+                result += Integer.toString(current.data);
+                if (current.next != null) result += "->";
+                current = current.next;
+            }
+        }
+        return result;
     }
 }
