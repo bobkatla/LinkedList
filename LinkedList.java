@@ -1,4 +1,5 @@
 public class LinkedList {
+
     private class Node {
         int data;
         private Node(int data) {this.data = data;}
@@ -40,15 +41,22 @@ public class LinkedList {
     }
 
     public int removeLast() {
+        Node result = tail;
         if (size == 0) {
             throw new Error("Invalid: the list is empty cannot remove element");
+        } else if (size == 1) {
+            head = null;
+            tail = null;
         } else {
             Node current = head;
             while (current.next.next != null) {
                 current = current.next;
             }
-            int result = tail.data;
+            current.next = null;
+            tail = current;
         }
+        size--;
+        return result.data;
     }
 
     public int removeFirst() {
@@ -59,6 +67,8 @@ public class LinkedList {
             Node newHead = head.next;
             head.next = null;
             head = newHead;
+            if (size == 1) tail = null;
+            size--;
             return result;
         }
     }
@@ -80,12 +90,20 @@ public class LinkedList {
     }
 
     public void showList() {
-        System.out.println("");
-        Node current = head;
-        while (current != null) {
-            System.out.print(current.data);
-            System.out.print("->");
-            current = current.next;
+        if (size == 0) {
+            throw new Error("Invalid: the list is empty");
+        } else {
+            Node current = head;
+            while (current != null) {
+                System.out.print(current.data);
+                if (current.next != null) System.out.print("->");
+                current = current.next;
+            }
+            System.out.println("");
         }
+    }
+
+    public void reverse() {
+        
     }
 }
